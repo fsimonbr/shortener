@@ -1,0 +1,27 @@
+{
+  "name": "shortener-app",
+  "description": "Admin shorten URL",
+  "version": "0.0.1",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "base58": "^1.0.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "redis": "^2.8.0",
+    "yargs": "^11.0.0"
+  },
+  "keywords": [
+    "url",
+    "shortener",
+    "redis",
+    "rest"
+  ],
+  "scripts": {
+    "start": "node app"
+  }
+}
