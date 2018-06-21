@@ -6,8 +6,8 @@ sudo docker-compose build
 
 sudo docker-compose --project-name app-test -f docker-compose.yml up
 
-:3001 - Admin interface
+:8081 - Admin interface
 
-:2000 - API interface - /api/v1/[options]
+:8080 - API interface - /api/v1/[options]
 
-:8080 - Redirect - /[brand]/[hash]
+:8082 - Redirect - /[brand]/[hash]
