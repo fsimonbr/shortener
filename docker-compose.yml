@@ -16,7 +16,7 @@ services:
     environment:
       - REDIS_HOST=redis
     ports:
-      - "3001:3001"
+      - "8081:2001"
   api:
     image: fsimon/shortener-api:latest
     build: ./shortener-api
@@ -25,7 +25,7 @@ services:
     environment:
       - REDIS_HOST=redis
     ports:
-      - "2000:2000"
+      - "8080:2000"
   redirect:
     image: fsimon/shortener-redirect:latest
     build: ./shortener-redirect
@@ -34,7 +34,7 @@ services:
     environment:
       - REDIS_HOST=redis
     ports:
-      - "8080:8080"
+      - "8082:2002"
   redis:
     image: redis:3.2-alpine
     volumes:
