@@ -10,7 +10,7 @@ process.addListener('uncaughtException', function (err, stack) {
   console.log('\u0007'); // Terminal bell
 });
 
-// Common options -
+// Common options
 app.set('__dirname', __dirname);
 app.set('opts', opts);
 app.set('x-powered-by', false);

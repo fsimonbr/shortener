@@ -1,5 +1,5 @@
 FROM node:alpine
-WORKDIR .
+WORKDIR ./shotener-app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -14,4 +14,5 @@ RUN npm install --production
 # Bundle app source
 COPY . .
 
+EXPOSE 3001
 CMD [ "npm", "start" ]

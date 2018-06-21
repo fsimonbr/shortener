@@ -1,7 +1,16 @@
+#sudo docker-compose build
+#sudo docker-compose --project-name app-test -f docker-compose.yml up
+#
+# Create tag's for images
+# docker tag shortener_app:latest fsimon/shortener-app:latest
+# docker tag shortener_api:latest fsimon/shortener-api:latest
+# docker tag shortener_redirect:latest fsimon/shortener-redirect:latest
+#
 version: '3'  
 services:
   app:
-    image: fsimon/shortner-app:latest
+    image: fsimon/shortener-app:latest
+    build: ./shortener-app
     depends_on:
       - redis
     environment:
@@ -9,7 +18,8 @@ services:
     ports:
       - "3001:3001"
   api:
-    image: fsimon/shortner-api:latest
+    image: fsimon/shortener-api:latest
+    build: ./shortener-api
     depends_on:
       - redis
     environment:
@@ -17,7 +27,8 @@ services:
     ports:
       - "2000:2000"
   redirect:
-    image: fsimon/shortner-redirect:latest
+    image: fsimon/shortener-redirect:latest
+    build: ./shortener-redirect
     depends_on:
       - redis
     environment:
