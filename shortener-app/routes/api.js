@@ -9,7 +9,7 @@ module.exports = function (app, nus) {
         if (err) {
           jsonResponse(res, err);
         } else if (reply) {
-          reply.short_url = opts.url.replace(/\/$/, '') + '/' + req.body['brand'] +'/'+ reply.hash;
+          reply.short_url = 'http://' + req.body['brand'] +'/'+ reply.hash;
           jsonResponse(res, 200, reply);
         } else {
           jsonResponse(res, 500);

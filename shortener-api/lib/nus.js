@@ -4,12 +4,6 @@ module.exports = function (opts) {
   var self = {};
 
   self.opts = opts || {};
-  self.opts.url = self.opts.url || 'http://127.0.0.1:2000';
-  self.opts.port = self.opts.port || 2000;
-  self.opts['redis-host'] = self.opts['redis-host'] || 'localhost';
-  self.opts['redis-port'] = self.opts['redis-port'] || 6379;
-  self.opts['redis-pass'] = self.opts['redis-pass'] || false;
-  self.opts['redis-db'] = self.opts['redis-db'] || 0;
 
   self.checkDate = function(begin, end){
     valid = true;  
@@ -20,11 +14,6 @@ module.exports = function (opts) {
 	    if(new Date(begin).toLocaleDateString("pt-BR") > (new Date().toLocaleDateString("pt-BR"))){
 	      valid = false;
 	    }
-	    console.log(new Date(end).toLocaleDateString("pt-BR"));
-	    console.log(new Date().toLocaleDateString("pt-BR"));
-	   /* if((end - begin) < 0){
-	      valid = false
-	    }; */
     }
 
     return valid;

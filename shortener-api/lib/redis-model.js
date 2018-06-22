@@ -25,23 +25,23 @@ var getRandomInt = function(min, max) {
     };
 
 // General prefix
-RedisModel._prefix_ = 'nus:';
+RedisModel._prefix_ = 'short:';
 
 // Keys
 
-// nus:counter
+// counter
 RedisModel.prototype.kCounter = function () {
   return RedisModel._prefix_ + 'counter';
 };
 
-// nus:url:<long_url> <short_url>
+// url:<long_url> <short_url>
 RedisModel.prototype.kUrl = function (url) {
   return RedisModel._prefix_ + 'url:' + this.md5(url);
 };
 
-// nus:hash:<id> url <long_url>
-// nus:hash:<id> hash <short_url>
-// nus:hash:<id> clicks <clicks>
+// hash:<id> url <long_url>
+// hash:<id> hash <short_url>
+// hash:<id> clicks <clicks>
 RedisModel.prototype.kHash = function (hash) {
   return RedisModel._prefix_ + 'hash:' + hash;
 };
@@ -77,22 +77,6 @@ RedisModel.prototype.findHash = function (short_url, callback) {
   this.db.hgetall(this.kHash(short_url), function (err, reply) {
     if (typeof callback === 'function') {
       callback(err, reply);
-    }
-  });
-};
-
-RedisModel.prototype.findHash2 = function (short_url, callback) {
-  this.db.hgetall(short_url, function (err, reply) {
-    if (typeof callback === 'function') {
-      callback(err, reply);
-    }
-  });
-};
-
-RedisModel.prototype.findAll = function (callback) {
-  this.db.keys('nus:hash:*', function (err, reply) {
-    if (typeof callback === 'function') {
-    	callback(err, reply);
     }
   });
 };
@@ -173,8 +157,6 @@ RedisModel.prototype.get = function (short_url, callback, click, brand) {
     if (err) {
       callback(500);
     } else {
-	console.log(reply);
-	console.log(brand);
 	if (reply && 'url' in reply && reply.brand === brand) {
 	      if (click) {
 		self.clickLink(reply.hash);
@@ -199,7 +181,7 @@ RedisModel.prototype.get = function (short_url, callback, click, brand) {
 RedisModel.prototype.getAll = function(req, res, callback) {
  var self = this;
     var return_dataset = [];
-    self.db.keys('nus:hash:*', function(err, log_list) {
+    self.db.keys(self.kHash('*'), function(err, log_list) {
     
         var multi = self.db.multi();
         var keys = Object.keys(log_list);
@@ -226,7 +208,7 @@ RedisModel.prototype.getAll = function(req, res, callback) {
 RedisModel.prototype.getAllBrand = function(brand,req, res, callback) {
  var self = this;
     var return_dataset = [];
-    self.db.keys('nus:hash:*', function(err, log_list) {
+    self.db.keys(self.kHash('*'), function(err, log_list) {
     
         var multi = self.db.multi();
         var keys = Object.keys(log_list);
@@ -235,7 +217,7 @@ RedisModel.prototype.getAllBrand = function(brand,req, res, callback) {
         keys.forEach(function (l) {
             self.db.hgetall(log_list[l], function(e, o) {
                 i++;
-		if (o.brand === brand){
+                if (o && o.brand === brand){
 		        if (e) {console.log(e)} else {
 		            return_dataset.push(o);
 		        }

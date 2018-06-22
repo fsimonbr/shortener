@@ -1,6 +1,4 @@
-var redis = require('redis'),
-    base58 = require('base58'),
-    crypto = require('crypto');
+var redis = require('redis');
 
 var RedisModel = module.exports = function (config, client) {
       if (config === null && client) {
@@ -20,57 +18,14 @@ var RedisModel = module.exports = function (config, client) {
       }
     };
 
-var getRandomInt = function(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    };
-
 // General prefix
-RedisModel._prefix_ = 'nus:';
+RedisModel._prefix_ = 'short:';
 
-// Keys
-
-// nus:counter
-RedisModel.prototype.kCounter = function () {
-  return RedisModel._prefix_ + 'counter';
-};
-
-// nus:url:<long_url> <short_url>
-RedisModel.prototype.kUrl = function (url) {
-  return RedisModel._prefix_ + 'url:' + this.md5(url);
-};
-
-// nus:hash:<id> url <long_url>
-// nus:hash:<id> hash <short_url>
-// nus:hash:<id> clicks <clicks>
+// hash:<id> url <long_url>
+// hash:<id> hash <short_url>
+// hash:<id> clicks <clicks>
 RedisModel.prototype.kHash = function (hash) {
   return RedisModel._prefix_ + 'hash:' + hash;
-};
-
-RedisModel.prototype.kBrand = function (brand) {
-  return RedisModel._prefix_ + 'brand:' + brand;
-};
-
-// Helpers
-RedisModel.prototype.md5 = function (url) {
-  return crypto.createHash('md5').update(url).digest('hex');
-};
-
-// Main methods
-RedisModel.prototype.uniqId = function (callback) {
-  this.db.incr(this.kCounter(), function (err, reply) {
-    var hash = base58.encode(getRandomInt(9999, 999999) + reply.toString());
-    if (typeof callback === 'function') {
-      callback(err, hash);
-    }
-  });
-};
-
-RedisModel.prototype.findUrl = function (long_url, callback) {
-  this.db.get(this.kUrl(long_url), function (err, reply) {
-    if (typeof callback === 'function') {
-      callback(err, reply);
-    }
-  });
 };
 
 RedisModel.prototype.findHash = function (short_url, callback) {
@@ -104,8 +59,6 @@ RedisModel.prototype.get = function (short_url, callback, click, brand) {
     if (err) {
       callback(500);
     } else {
-	console.log(reply);
-	console.log(brand);
 	if (reply && 'url' in reply && reply.brand === brand) {
 	      if (click) {
 		self.clickLink(reply.hash);

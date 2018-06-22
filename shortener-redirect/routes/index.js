@@ -1,7 +1,4 @@
 module.exports = function (app, nus) {
-  var opts = app.get('opts')
-    , http = require('http');
-
   // shorten route
   app.get('/:brand/:hash', function (req, res, next){
     nus.expand(req.params.hash, function (err, reply) {
@@ -28,7 +25,6 @@ module.exports = function (app, nus) {
     next(err);
   });
 
- 
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     if (/^\/api\/v1/.test(req.originalUrl)) {

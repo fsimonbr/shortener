@@ -25,23 +25,21 @@ var getRandomInt = function(min, max) {
     };
 
 // General prefix
-RedisModel._prefix_ = 'nus:';
+RedisModel._prefix_ = 'short:';
 
-// Keys
-
-// nus:counter
+// counter
 RedisModel.prototype.kCounter = function () {
   return RedisModel._prefix_ + 'counter';
 };
 
-// nus:url:<long_url> <short_url>
+// url:<long_url> <short_url>
 RedisModel.prototype.kUrl = function (url) {
   return RedisModel._prefix_ + 'url:' + this.md5(url);
 };
 
-// nus:hash:<id> url <long_url>
-// nus:hash:<id> hash <short_url>
-// nus:hash:<id> clicks <clicks>
+// hash:<id> url <long_url>
+// hash:<id> hash <short_url>
+// hash:<id> clicks <clicks>
 RedisModel.prototype.kHash = function (hash) {
   return RedisModel._prefix_ + 'hash:' + hash;
 };

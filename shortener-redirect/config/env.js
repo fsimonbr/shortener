@@ -6,6 +6,10 @@ var path = require('path')
 module.exports = function (express, app) {
   __dirname = app.get('__dirname');
 
+  // View engine setup
+  app.set('view engine', 'ejs');
+  app.set('views', path.join(__dirname, 'views'));
+
   // Middleware
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));

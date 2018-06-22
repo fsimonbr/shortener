@@ -1,6 +1,6 @@
 (function ($) {
   var _nus = function (data) {
-    this._api_ = '/api/v1/shorten/';
+    this._api_ = 'http://127.0.0.1:8080/api/v1/shorten/';
     this._form_ = '#nus';
     this._s_date = '#start_date';
     this._e_date = '#end_date';

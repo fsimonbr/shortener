@@ -4,13 +4,6 @@ module.exports = function (opts) {
   var self = {};
 
   self.opts = opts || {};
-  self.opts.url = self.opts.url || 'http://127.0.0.1:8080';
-  self.opts.port = self.opts.port || 8080;
-  self.opts['redis-host'] = self.opts['redis-host'] || 'localhost';
-  self.opts['redis-port'] = self.opts['redis-port'] || 6379;
-  self.opts['redis-pass'] = self.opts['redis-pass'] || false;
-  self.opts['redis-db'] = self.opts['redis-db'] || 0;
-
   self.checkDate = function(begin, end){
     valid = true;  
     if (begin != '0'){
