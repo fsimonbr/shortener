@@ -5,6 +5,7 @@ cd shortener
 sudo docker-compose build
 
 #change images name
+
 sudo docker-compose --project-name app-test -f docker-compose.yml up
 
 Default:
