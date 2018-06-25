@@ -1,8 +1,7 @@
 var express = require('express')
   , app = express()
   , path = require('path')
-  , opts = require(path.join(__dirname, 'config', 'opts.js'))
-  , nus = require(path.join(__dirname, 'lib', 'nus.js'))(opts);
+  , opts = require(path.join(__dirname, 'config', 'opts.js'));
 
 // Gotta Catch 'Em All
 process.addListener('uncaughtException', function (err, stack) {
@@ -19,7 +18,7 @@ app.set('x-powered-by', false);
 require(path.join(__dirname, 'config', 'env.js'))(express, app);
 
 // Load routes
-require(path.join(__dirname, 'routes'))(app, nus);
+require(path.join(__dirname, 'routes'))(app);
 
 // Start HTTP server
 app.listen(opts.port, function () {

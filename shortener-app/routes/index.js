@@ -1,4 +1,4 @@
-module.exports = function (app, nus) {
+module.exports = function (app) {
   // index route
   app.route('/').all(function (req, res) {
     res.render('index');
